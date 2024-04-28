@@ -9,17 +9,19 @@ const getIcon = ({ current }) => {
     return iconPack[iconKey];
 };
 
+// const Card = function ({current})
+
 const displayCurrentWeather = function displayCurrentWeaterInformation(data) {
     const container = document.createElement("div");
     container.className =
-        "grid grid-cols-2 backdrop-brightness-[.85] px-2 py-2 rounded-lg";
+        "grid grid-cols-1 backdrop-brightness-[.85] px-2 pt-8 rounded-lg ";
 
-    const primaryInformationDiv = document.createElement("div");
-    primaryInformationDiv.className =
-        "flex flex-col gap-1 justify-start items-start";
+    // Div for locaiton, date and time display
+    const localeDiv = document.createElement("div");
+    localeDiv.className = "flex justify-between";
 
     const locationDiv = document.createElement("div");
-    locationDiv.className = "flex items-center gap-2";
+    locationDiv.className = "flex items-start gap-2";
     const locIcon = document.createElement("div");
     locIcon.className = "w-4 h-4 fill-slate-100";
     locIcon.innerHTML = iconPack.location;
@@ -28,40 +30,52 @@ const displayCurrentWeather = function displayCurrentWeaterInformation(data) {
     locationText.textContent = `${data.location.name}, ${data.location.country}`;
     locationText.className = "text-slate-100 text-sm";
     locationDiv.appendChild(locationText);
-    primaryInformationDiv.appendChild(locationDiv);
+    localeDiv.appendChild(locationDiv);
+
+    const dateTimeDiv = document.createElement("div");
+    dateTimeDiv.className = "flex flex-col";
 
     const dateDiv = document.createElement("div");
     dateDiv.className = "flex text-white text-xs ps-6";
     const dayOfWeek = dayjs().format("dddd");
     const date = dayjs().format("D MMM, YYYY");
     dateDiv.textContent = `${dayOfWeek} | ${date}`;
-    primaryInformationDiv.appendChild(dateDiv);
+    dateTimeDiv.appendChild(dateDiv);
 
     const timeDiv = document.createElement("div");
     timeDiv.textContent = dayjs().format("h:m a");
     timeDiv.className = "text-white text-xs ps-6";
-    primaryInformationDiv.appendChild(timeDiv);
+    dateTimeDiv.appendChild(timeDiv);
+    localeDiv.appendChild(dateTimeDiv);
+    container.appendChild(localeDiv);
 
+    // Div containing primary weather information
+    const primaryInformationDiv = document.createElement("div");
+    primaryInformationDiv.className =
+        "flex gap-1 justify-center items-center py-12";
     const iconDiv = document.createElement("div");
     const weatherIcon = getIcon(data);
     iconDiv.innerHTML = weatherIcon;
-    iconDiv.className = "w-32 h-32 fill-white mt-12";
+    iconDiv.className = "w-36 h-36 fill-white";
     primaryInformationDiv.appendChild(iconDiv);
 
+    const textDiv = document.createElement("div");
+    textDiv.className = "flex flex-col";
+
     const currentTemp = document.createElement("p");
-    currentTemp.className = "text-white font-medium text-6xl ps-4";
+    currentTemp.className = "text-white font-medium text-6xl";
     currentTemp.textContent = Math.round(data.current.temp_c);
     const tempUnitSpan = document.createElement("span");
     tempUnitSpan.innerHTML = "  &degC";
     tempUnitSpan.className = "text-white font-medium text-2xl";
     currentTemp.appendChild(tempUnitSpan);
-
-    primaryInformationDiv.appendChild(currentTemp);
+    textDiv.appendChild(currentTemp);
 
     const weatherText = document.createElement("p");
     weatherText.textContent = data.current.condition.text;
-    weatherText.className = "text-white font-medium text-2xl ps-4";
-    primaryInformationDiv.appendChild(weatherText);
+    weatherText.className = "text-white font-light text-2xl";
+    textDiv.appendChild(weatherText);
+    primaryInformationDiv.appendChild(textDiv);
 
     container.appendChild(primaryInformationDiv);
     return container;
