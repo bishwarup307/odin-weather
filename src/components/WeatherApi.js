@@ -1,27 +1,3 @@
-import logoPng from "../assets/logo.png";
-
-// export default function Container() {
-//     const container = document.createElement("div");
-//     container.className =
-//         "container flex justify-center items-center gap-4 bg-slate-800 mt-16 h-[80vh] text-6xl rounded-3xl shadow-2xl";
-
-//     getWeather().then((weather) => {
-//         console.log(weather);
-//     });
-
-//     // const successCallback = (position) => {
-//     //     console.log(position);
-//     // };
-
-//     // const errorCallback = (error) => {
-//     //     console.log(error);
-//     // };
-
-//     // navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-
-//     return container;
-// }
-
 function requestUserLocation() {
     return new Promise((resolve, reject) => {
         const successCallback = (position) => {
