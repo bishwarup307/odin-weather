@@ -4,6 +4,6 @@ This is a realtime weather app created using Vanilla JavaScript and a free [Weat
 
 ## Screenshots
 
-![Weather app]("./src/assets/app-ss.png")
+![Weather app](./src/assets/app-ss.png)
 
 #### Check out the live demo [here](https://bishwarup307.github.io/odin-weather/)
